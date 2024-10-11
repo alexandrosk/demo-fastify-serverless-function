@@ -8,6 +8,10 @@ app.get('/', async (req, reply) => {
   return reply.status(200).type('text/html').send(html)
 })
 
+app.get('/hello-nordics', async (req, reply) => {
+  return reply.status(200).type('text/html').send(nordicsHtml)
+})
+
 export default async function handler(req, reply) {
   await app.ready()
   app.server.emit('request', req, reply)
@@ -61,6 +65,46 @@ export default async function handler(req: any, res: any) {
       Deploy your own
       </a>
       to get started.
+  </body>
+</html>
+`
+
+
+const nordicsHtml = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"
+    />
+    <title>Hello Nordics Technical Architects</title>
+    <style>
+      .emoji {
+        font-size: 2em;
+      }
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+      .button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello Nordics Technical Architects! 👋🇫🇮🇳🇴🇸🇪🇩🇰🇪🇺</h1>
+    <p class="emoji">👨‍💻👩‍💻🖥️🌐</p>
+    <p>Welcome to our amazing world of serverless functions and edge computing!</p>
+    <a href="https://vercel.com/docs/concepts/functions/edge-functions" class="button">Learn More About Edge Functions</a>
   </body>
 </html>
 `
