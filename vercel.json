@@ -5,6 +5,14 @@
       "destination": "/api/hello-nordics"
     },
     {
+      "source": "/latency-test",
+      "destination": "/api/index"
+    },
+    {
+      "source": "/edge-latency",
+      "destination": "/api/index"
+    },
+    {
       "source": "/(.*)",
       "destination": "/api"
     }

@@ -12,6 +12,11 @@ app.get('/hello-nordics', async (req, reply) => {
   return reply.status(200).type('text/html').send(nordicsHtml)
 })
 
+app.get('/edge-latency', async (req, reply) => {
+  const timestamp = Date.now()
+  return reply.status(200).type('application/json').send({ timestamp })
+})
+
 export default async function handler(req, reply) {
   await app.ready()
   app.server.emit('request', req, reply)
@@ -105,6 +110,30 @@ const nordicsHtml = `
     <p class="emoji">👨‍💻👩‍💻🖥️🌐</p>
     <p>Welcome to our amazing world of serverless functions and edge computing!</p>
     <a href="https://vercel.com/docs/concepts/functions/edge-functions" class="button">Learn More About Edge Functions</a>
+    <h1>Edge Latency Test</h1>
+    <p>Click the button to measure the round-trip time to the edge server:</p>
+    <button id="testButton" class="button">Run Latency Test</button>
+    <p>Result: <span id="result">-</span> ms</p>
+
+    <script>
+      const testButton = document.getElementById('testButton');
+      const resultSpan = document.getElementById('result');
+
+      testButton.addEventListener('click', async () => {
+        const start = performance.now();
+        const response = await fetch('/edge-latency');
+        const data = await response.json();
+        const end = performance.now();
+
+        const latency = Math.round(end - start);
+        resultSpan.textContent = latency;
+      });
+    </script>
   </body>
 </html>
 `
+
+
+app.get('/latency-test', async (req, reply) => {
+  return reply.status(200).type('text/html').send(latencyHtml)
+})
